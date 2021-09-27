@@ -1,1 +1,1 @@
-# CMPG-323---Discovery-Project-1
+# CMPG-323--Discovery-Project-1
