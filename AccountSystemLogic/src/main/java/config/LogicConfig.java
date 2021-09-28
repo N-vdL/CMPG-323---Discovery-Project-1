@@ -3,13 +3,13 @@ package config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import config.TranslaterConfig;
 
-@Import(LogicConfig.class)
+@Import({TranslaterConfig.class})
 @Configuration
 @ComponentScan(basePackages = {
-        "za.ac.nwu.as.web.sb.controller",
-        "za.ac.nwu.as.web.sb.exception"
+        "za.ac.nwu.as.logic.flow"
 })
 
-public class WebConfig {
+public class LogicConfig {
 }
