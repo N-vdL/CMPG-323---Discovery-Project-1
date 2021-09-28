@@ -1,12 +1,11 @@
 package impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import dto.AccountTypeDTO;
 import persistence.AccountType;
 import persistence.AccountTypeRepository;
-import AccountTypeTranslater;
+import za.ac.nwu.as.translater.AccountTypeTranslater;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class AccountTypeTranslaterImpl implements AccountTypeTranslater {
     public AccountTypeDTO create(AccountTypeDTO accountTypeDTO) {
         try {
             AccountType accountType = accountTypeRepository.save(accountTypeDTO.getAccountType());
-            return new AccountTypeDTO(accountType)
+            return new AccountTypeDTO(accountType);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
