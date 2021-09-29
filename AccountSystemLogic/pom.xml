@@ -51,5 +51,14 @@
     <artifactId>AccountSystemLogic</artifactId>
     <packaging>jar</packaging>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.3</version>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
