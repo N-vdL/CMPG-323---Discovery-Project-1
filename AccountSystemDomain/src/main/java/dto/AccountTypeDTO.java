@@ -23,9 +23,9 @@ public class AccountTypeDTO implements Serializable {
     }
 
     public AccountTypeDTO(AccountType accountType) {
-        this.setAccountTypeName(accountType).getAccountTypeName());
-        this.setCreationDate(accountType.getCreationDate());
-        this.setMnemonic(accountType.getMnemonic());
+        //this.setAccountTypeName(accountType).getAccountTypeName());
+        //this.setCreationDate(accountType.getCreationDate());
+        //this.setMnemonic(accountType.getMnemonic());
     }
 
     private Object setAccountTypeName(AccountType accountType) {
