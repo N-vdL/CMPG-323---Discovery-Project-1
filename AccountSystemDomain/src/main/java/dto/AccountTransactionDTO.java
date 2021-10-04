@@ -1,8 +1,12 @@
-package persistence;
+package dto;
 
-import dto.AccountTransactionDetailsDTO;
+import persistence.AccountTransaction;
+import persistence.AccountType;
 
-public class AccountTransaction {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class AccountTransactionDTO implements Serializable {
 
     private static final long serialVersionUID = 0;
     private long transactionID;
@@ -12,7 +16,7 @@ public class AccountTransaction {
     private localDate transactionDate;
     private AccountTransactionDetailsDTO details;
 
-    public AccountTransaction(long transactionID, String accountTypeMnemonic,
+    public AccountTransactionDTO(long transactionID, String accountTypeMnemonic,
                                  long memberID, long amount, localDate transactionDate) {
 
         this.transactionID = transactionID;
@@ -22,7 +26,7 @@ public class AccountTransaction {
         this.transactionDate = transactionDate;
     }
 
-    public AccountTransaction(long transactionID, String accountTypeMnemonic,
+    public AccountTransactionDTO(long transactionID, String accountTypeMnemonic,
                                  long memberID, long amount, localDate transactionDate,
                                  AccountTransactionDetailsDTO createAccountTransaction) {
 
@@ -34,7 +38,7 @@ public class AccountTransaction {
         this.details = details;
     }
 
-    public AccountTransaction(AccountTransaction accountTransaction) {
+    public AccountTransactionDTO(AccountTransaction accountTransaction) {
         this.transactionID = accountTransaction.getTransactionID();
         this.accountTypeMnemonic = accountTransaction.getAccountTypeMnemonic();
         this.memberID = accountTransaction.getMemberID();
@@ -49,7 +53,7 @@ public class AccountTransaction {
 
     public AccountTransaction buildAccountTransaction(AccountType accountType) {
         return new AccountTransaction(this.getTransactionID(), accountType, this.getMemberID(),
-                this.getAmount(), this.getTransactionID());
+        this.getAmount(), this.getTransactionID());
     }
 
     private Object getAmount() {
@@ -76,6 +80,33 @@ public class AccountTransaction {
 
     public void setDetails(AccountTransactionDetailsDTO details) { this.details = details; }
 
+    @Override
+    public boolean equals (Object object) {
+        if (this == object) return true;
 
+        if (object == null || getClass() != object.getClass()) return false;
 
+        AccountTransactionDTO that = (AccountTransactionDTO) object;
+
+        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionID, accountTypeMnemonic, memberID, amount, transactionDate, details);
+    }
+
+    @Override
+    public String toString() {
+        return "AccountTransactionDTO {" +
+                "transactionID = '" + transactionID + "' " +
+                ", accountTypeMnemonic = '" + accountTypeMnemonic +
+                ", memberID = '" + memberID +
+                ", amount = '" + amount +
+                ", transactionDate = '" + transactionDate +
+                "' }";
+    }
+
+    public void setTransactionId(Object o) {
+    }
 }

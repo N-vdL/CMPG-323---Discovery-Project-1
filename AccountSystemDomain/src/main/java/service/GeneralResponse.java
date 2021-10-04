@@ -1,4 +1,6 @@
 package service;
 
-public class GeneralResponse {
+public class GeneralResponse<A> {
+    public GeneralResponse(boolean successful, A accountTransactions) {
+    }
 }
