@@ -2,14 +2,21 @@ package persistence;
 
 import dto.AccountTransactionDetailsDTO;
 
-public class AccountTransaction {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+
+@Table(name ="ACCOUNT_TYPE", schema = "VITRSA_SANDBOX")
+public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 0;
+
     private long transactionID;
+    private AccountType accountTypeID;
     private String accountTypeMnemonic;
     private long memberID;
     private long amount;
-    private localDate transactionDate;
+    private LocalDate transactionDate;
     private AccountTransactionDetailsDTO details;
 
     public AccountTransaction(long transactionID, String accountTypeMnemonic,
@@ -48,34 +55,95 @@ public class AccountTransaction {
     }
 
     public AccountTransaction buildAccountTransaction(AccountType accountType) {
-        return new AccountTransaction(this.getTransactionID(), accountType, this.getMemberID(),
+        return new AccountTransaction(this.getTransactionID(), this.accountTypeID, this.getMemberID(),
                 this.getAmount(), this.getTransactionID());
     }
 
-    private Object getAmount() {
+    private long getAmount() {
+        return amount;
     }
 
-    public long getTransactionID() { return transactionID; }
+    @Column(name = "transactionID")
+    public long getTransactionID() {
+        return transactionID;
+    }
 
-    public void setTransactionID(long transactionID) { this.transactionID = transactionID; }
+    public void setTransactionID(long transactionID) {
+        this.transactionID = transactionID;
+    }
 
-    public String getAccountTypeMnemonic() { return accountTypeMnemonic; }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accountTypeID")
+    public AccountType getAccountTypeID() {
+        return accountTypeID;
+    }
 
-    public void setAccountTypeMnemonic(String accountTypeMnemonic)
-    { this.accountTypeMnemonic = accountTypeMnemonic; }
+    public void setAccountTypeID(AccountType accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
 
-    public long getMemberID() { return memberID; }
+    @Column(name = "accountTypeMnemonic")
+    public String getAccountTypeMnemonic() {
+        return accountTypeMnemonic;
+    }
 
-    public void setAmount(long amount) { this.amount = amount; }
+    public void setAccountTypeMnemonic(String accountTypeMnemonic) {
+        this.accountTypeMnemonic = accountTypeMnemonic;
+    }
 
-    public localDate getTransactionDate() { return transactionDate; }
+    @Column(name = "memberID")
+    public long getMemberID() {
+        return memberID;
+    }
 
-    public void setTransactionDate(localDate transactionDate) { this.transactionDate = transactionDate; }
+    public void setMemberID(long memberID) {
+        this.memberID = memberID;
+    }
 
-    public AccountTransactionDetailsDTO getDetails() { return details; }
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
 
-    public void setDetails(AccountTransactionDetailsDTO details) { this.details = details; }
+    @Column(name = "transactionDate")
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
 
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
+    }
 
+    public AccountTransactionDetailsDTO getDetails() {
+        return details;
+    }
 
+    public void setDetails(AccountTransactionDetailsDTO details) {
+        this.details = details;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountTransaction that = (AccountTransaction) o;
+        return transactionID == that.transactionID && memberID == that.memberID && amount == that.amount && Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic) && Objects.equals(transactionDate, that.transactionDate) && Objects.equals(details, that.details);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(transactionID, accountTypeID, accountTypeMnemonic, memberID, amount, transactionDate, details);
+    }
+
+    @Override
+    public String toString() {
+        return "AccountTransaction{" +
+                "transactionID=" + transactionID +
+                ", accountTypeID=" + accountTypeID +
+                ", accountTypeMnemonic='" + accountTypeMnemonic + '\'' +
+                ", memberID=" + memberID +
+                ", amount=" + amount +
+                ", transactionDate=" + transactionDate +
+                ", details=" + details +
+                '}';
+    }
 }

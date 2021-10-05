@@ -24,7 +24,7 @@
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
         <swagger.version>1.5.20</swagger.version>
 
-        <haltOnFailure>false</haltOnFailure>
+        <haltOnFailure>true</haltOnFailure>
     </properties>
 
     <modules>
@@ -101,7 +101,7 @@
                 <version>2.5.4</version>
             </dependency>
 			<dependency>
-                <groupId>com.oracle.ojdbc</groupId>
+                <groupId>com.oracle</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>19.3.0.0</version>
             </dependency>
